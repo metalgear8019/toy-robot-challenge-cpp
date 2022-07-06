@@ -2,10 +2,23 @@
 //
 
 #include <iostream>
+#include <string>
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    bool isTerminated = false;
+    std::string command;
+
+    do {
+        // TODO: add display logic for current table state here
+        // std::cout << "Hello World!\n";
+
+        // Read command input here
+        std::getline(std::cin, command);
+
+        // TODO: parse command for processing
+    } while (!isTerminated);
+
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
