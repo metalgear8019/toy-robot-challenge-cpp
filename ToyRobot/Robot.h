@@ -8,6 +8,7 @@ class Robot
 {
 public:
 	// Constructors
+	Robot() : Robot(0, 0, DIRECTION::NORTH) {}
 	Robot(const Position& p, int direction) : Robot(p.GetX(), p.GetY(), direction) {}
 	Robot(int x, int y, int direction) {
 		m_pos.SetX(x);
@@ -18,12 +19,13 @@ public:
 	// Getters
 	const Position& GetPosition() { return m_pos; }
 	const int& GetDirection() { return m_direction; }
+	
+	// Setters
+	void SetPosition(const Position& p) { m_pos = p; }
+	void SetDirection(const int& d) { m_direction = d; }
 
-	// Update methods below
-	void Move() {
-		m_pos.MoveTowards(m_direction);
-	}
-
+	// TODO: Remove rotation logic from this class, create dedicated Direction class
+	// Manipulate rotation below
 	void FaceLeft() {
 		switch (m_direction)
 		{

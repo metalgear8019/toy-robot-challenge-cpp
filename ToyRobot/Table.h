@@ -1,14 +1,19 @@
 #pragma once
 
+#include <memory>
+
 #include "Position.h"
 #include "Robot.h"
 
 class Table
 {
 public:
-	// TODO: Get rid of traditional pointer "Robot*"
 
-	bool PlaceRobot(Robot* r) {
+	std::weak_ptr<Robot> GetRobotReference() {
+		return m_trackedRobot;
+	}
+
+	bool PlaceRobot(std::shared_ptr<Robot>& r) {
 		bool isSuccessful = false;
 		if (nullptr != r) {
 			m_trackedRobot = r;
@@ -16,7 +21,9 @@ public:
 		}
 		return isSuccessful;
 	}
-
+	
+	// TODO: Must move this logic to command classes instead
+	/*
 	bool MoveRobot() {
 		int currentDir = m_trackedRobot->GetDirection();
 		Position currentPos = m_trackedRobot->GetPosition();
@@ -36,12 +43,27 @@ public:
 
 		return false;
 	}
+	*/
 
-	Robot* GetRobotInfo() { return m_trackedRobot; }
+	bool IsInBounds(const Position& p) const {
+		return (
+			p.GetX() >= 0 &&
+			p.GetX() < m_width &&
+			p.GetY() >= 0 &&
+			p.GetY() < m_length
+		);
+	}
+
+	bool IsUnoccupuied(const Position& p) const {
+		return (
+			m_trackedRobot->GetPosition().GetX() != p.GetX() ||
+			m_trackedRobot->GetPosition().GetY() != p.GetY()
+		);
+	}
 
 private:
-	unsigned int m_width;	// x-axis
-	unsigned int m_length;	// y-axis
-	Robot* m_trackedRobot;	// pointer to current tracked robot
+	unsigned int m_width;					// x-axis
+	unsigned int m_length;					// y-axis
+	std::shared_ptr<Robot> m_trackedRobot;	// pointer to current tracked robot
 };
 

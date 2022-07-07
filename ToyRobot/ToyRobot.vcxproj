@@ -127,7 +127,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Command.cpp" />
     <ClCompile Include="Robot.cpp" />
     <ClCompile Include="Table.cpp" />
     <ClCompile Include="ToyRobot.cpp" />
