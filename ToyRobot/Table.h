@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <string>
 
 #include "Position.h"
 #include "Robot.h"
@@ -9,41 +10,31 @@ class Table
 {
 public:
 
-	std::weak_ptr<Robot> GetRobotReference() {
+	Robot* GetRobotReference() {
 		return m_trackedRobot;
 	}
 
-	bool PlaceRobot(std::shared_ptr<Robot>& r) {
-		bool isSuccessful = false;
-		if (nullptr != r) {
-			m_trackedRobot = r;
-			isSuccessful = true;
-		}
-		return isSuccessful;
-	}
-	
-	// TODO: Must move this logic to command classes instead
-	/*
-	bool MoveRobot() {
-		int currentDir = m_trackedRobot->GetDirection();
-		Position currentPos = m_trackedRobot->GetPosition();
-		Position newPos = currentPos;
-		newPos.MoveTowards(currentDir);
-
-		// Check if next position will be still in bounds
-		if (newPos.GetX() >= 0 &&
-			newPos.GetX() < m_width &&
-			newPos.GetY() >= 0 &&
-			newPos.GetY() < m_length) {
-			
-			// Update robot position
-			m_trackedRobot->Move();
-			return true;
+	bool PlaceRobot(const Robot& robot) {
+		if (nullptr != m_trackedRobot) {
+			return false;
 		}
 
-		return false;
+		m_trackedRobot = new Robot(robot);
+		return true;
 	}
-	*/
+
+	bool RemoveRobot() {
+		if (nullptr == m_trackedRobot) {
+			return false;
+		}
+
+		delete m_trackedRobot;
+		return true;
+	}
+
+	bool IsRobotPlaced() {
+		return (nullptr != m_trackedRobot);
+	}
 
 	bool IsInBounds(const Position& p) const {
 		return (
@@ -55,15 +46,82 @@ public:
 	}
 
 	bool IsUnoccupuied(const Position& p) const {
+		if (nullptr == m_trackedRobot) {
+			return true;
+		}
+
 		return (
 			m_trackedRobot->GetPosition().GetX() != p.GetX() ||
 			m_trackedRobot->GetPosition().GetY() != p.GetY()
 		);
 	}
 
+	std::string GenerateStringDisplay() {
+		std::string strDisplay = "";
+
+		for (int l = 0; l < m_length; l++) {
+			strDisplay += generateHorizontalBorder(m_width);
+
+			for (int w = 0; w < m_width; w++) {
+				strDisplay += "| ";
+
+				// Display a character "R" where the tracked robot exists
+				if (!IsUnoccupuied(Position(l, w))) {
+					strDisplay += "R";
+				} else {
+					strDisplay += " ";
+				}
+				
+				strDisplay += " ";
+			}
+
+			// End line only if m_width is > 0
+			if (m_width > 0)
+				strDisplay += "|\n";
+		};
+
+		// End line only if m_length is > 0
+		if (m_length > 0)
+			strDisplay += generateHorizontalBorder(m_width);
+
+		return strDisplay;
+	}
+
+	Table() {
+		m_width = 0;
+		m_length = 0;
+		m_trackedRobot = nullptr;
+	}
+
+	Table(int l, int w) {
+		m_width = w;
+		m_length = l;
+		m_trackedRobot = nullptr;
+	}
+
+	~Table() {
+		RemoveRobot();
+	}
+
 private:
-	unsigned int m_width;					// x-axis
-	unsigned int m_length;					// y-axis
-	std::shared_ptr<Robot> m_trackedRobot;	// pointer to current tracked robot
+	int m_width = 0;							// x-axis
+	int m_length = 0;							// y-axis
+	// TODO: Change primitive pointer
+	Robot* m_trackedRobot = nullptr;					// pointer to current tracked robot
+
+	std::string	generateHorizontalBorder(int grid_width) {
+		std::string strBorder = "";
+
+		// Do not generate if grid_width is invalid
+		if (grid_width <= 0)
+			return strBorder;
+
+		for (int w = 0; w < grid_width; w++) {
+			strBorder += "+---";
+		}
+
+		strBorder += "+\n";
+		return strBorder;
+	}
 };
 

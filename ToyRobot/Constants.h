@@ -15,6 +15,8 @@ const enum DIRECTION {
 	EAST,
 	WEST,
 	SOUTH,
+	UNKNOWN,
 };
+typedef int Direction;
 
 #endif

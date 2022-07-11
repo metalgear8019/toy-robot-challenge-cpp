@@ -127,6 +127,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="LeftCommand.cpp" />
+    <ClCompile Include="MoveCommand.cpp" />
+    <ClCompile Include="Parser.cpp" />
+    <ClCompile Include="PlaceCommand.cpp" />
+    <ClCompile Include="ReportCommand.cpp" />
+    <ClCompile Include="RightCommand.cpp" />
     <ClCompile Include="Robot.cpp" />
     <ClCompile Include="Table.cpp" />
     <ClCompile Include="ToyRobot.cpp" />
@@ -134,7 +140,13 @@
   <ItemGroup>
     <ClInclude Include="Command.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="LeftCommand.h" />
+    <ClInclude Include="MoveCommand.h" />
+    <ClInclude Include="Parser.h" />
+    <ClInclude Include="PlaceCommand.h" />
     <ClInclude Include="Position.h" />
+    <ClInclude Include="ReportCommand.h" />
+    <ClInclude Include="RightCommand.h" />
     <ClInclude Include="Robot.h" />
     <ClInclude Include="Table.h" />
   </ItemGroup>

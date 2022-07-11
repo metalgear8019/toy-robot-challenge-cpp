@@ -5,10 +5,10 @@
 #include "Command.h"
 #include "Table.h"
 
-class ReportCommand : public Command
+class RightCommand : public Command
 {
 public:
-    ReportCommand(Table* table) {
+    RightCommand(Table* table) {
         m_table = table;
     }
 
@@ -20,7 +20,8 @@ public:
             return false;
         }
 
-        std::cout << "> " << m_table->GetRobotReference()->ToString() << std::endl;
+        // Update actual robot direction
+        m_table->GetRobotReference()->FaceRight();
         return true;
     }
 private:

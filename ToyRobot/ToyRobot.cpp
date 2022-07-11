@@ -4,19 +4,23 @@
 #include <iostream>
 #include <string>
 
+#include "Parser.h"
+
 int main()
 {
     bool isTerminated = false;
     std::string command;
 
     do {
-        // TODO: add display logic for current table state here
+        // TODO: add display logic for initial command list
         // std::cout << "Hello World!\n";
 
         // Read command input here
-        std::getline(std::cin, command);
-
-        // TODO: parse command for processing
+        Parser parser;
+        do {
+            std::getline(std::cin, command);
+            parser.ParseCommand(command);
+        } while (true);
     } while (!isTerminated);
 
 }

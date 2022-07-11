@@ -31,12 +31,12 @@ public:
 	void SetY(const int& y) { m_y = y; }
 
 	// Setter with direction check
-	void MoveTowards(const int& direction) {
+	void MoveTowards(const Direction& direction) {
 		MoveTowards(direction, 1);
 	}
 
 	// Setter with direction check + variable distance
-	void MoveTowards(const int& direction, const int& distance) {
+	void MoveTowards(const Direction& direction, const int& distance) {
 		switch (direction) {
 		case DIRECTION::NORTH:	m_y -= distance; break;
 		case DIRECTION::EAST:	m_x += distance; break;
