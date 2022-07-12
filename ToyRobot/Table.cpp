@@ -19,6 +19,7 @@ bool Table::RemoveRobot() {
 	}
 
 	delete m_trackedRobot;
+	m_trackedRobot = nullptr;
 	return true;
 }
 

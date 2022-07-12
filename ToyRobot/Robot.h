@@ -11,6 +11,12 @@
 class Robot
 {
 public:
+
+	// Methods
+	void FaceLeft();
+	void FaceRight();
+	std::string ToString();
+
 	// Constructors
 	Robot() : Robot(0, 0, DIRECTION::NORTH) {}
 	Robot(const Position& p, const Direction& direction) : Robot(p.GetX(), p.GetY(), direction) {}
@@ -27,11 +33,6 @@ public:
 	// Setters
 	void SetPosition(const Position& p) { m_pos = p; }
 	void SetDirection(const Direction& d) { m_direction = d; }
-
-	// Other methods
-	void FaceLeft();
-	void FaceRight();
-	std::string ToString();
 	
 private:
 	Position m_pos;
