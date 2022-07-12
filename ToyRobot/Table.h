@@ -54,7 +54,7 @@ public:
 		m_trackedRobot = nullptr;
 	}
 
-	Table(int l, int w) {
+	Table(int w, int l) {
 		m_width = w;
 		m_length = l;
 		m_trackedRobot = nullptr;
