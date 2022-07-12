@@ -33,10 +33,10 @@ public:
 	// Setter with direction check + variable distance
 	void MoveTowards(const Direction& direction, const int& distance) {
 		switch (direction) {
-		case DIRECTION::NORTH:	m_y -= distance; break;
+		case DIRECTION::NORTH:	m_y += distance; break;
 		case DIRECTION::EAST:	m_x += distance; break;
 		case DIRECTION::WEST:	m_x -= distance; break;
-		case DIRECTION::SOUTH:	m_y += distance; break;
+		case DIRECTION::SOUTH:	m_y -= distance; break;
 		default:
 			// unsupported direction, do nothing
 			break;

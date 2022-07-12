@@ -20,7 +20,7 @@ TEST(PositionTest, MoveNorthTest) {
 	testPos.MoveTowards(DIRECTION::NORTH);
 
 	EXPECT_EQ(testPos.GetX(), 456);
-	EXPECT_EQ(testPos.GetY(), 226);
+	EXPECT_EQ(testPos.GetY(), 228);
 }
 
 TEST(PositionTest, MoveEastTest) {
@@ -44,7 +44,7 @@ TEST(PositionTest, MoveSouthTest) {
 	testPos.MoveTowards(DIRECTION::SOUTH);
 
 	EXPECT_EQ(testPos.GetX(), 456);
-	EXPECT_EQ(testPos.GetY(), 228);
+	EXPECT_EQ(testPos.GetY(), 226);
 }
 
 TEST(PositionTest, MoveUnknownTest) {
@@ -60,7 +60,7 @@ TEST(PositionTest, MoveNorthVariableTest) {
 	testPos.MoveTowards(DIRECTION::NORTH, 500);
 
 	EXPECT_EQ(testPos.GetX(), 456);
-	EXPECT_EQ(testPos.GetY(), -273);
+	EXPECT_EQ(testPos.GetY(), 727);
 }
 
 TEST(PositionTest, MoveEastVariableTest) {
@@ -84,7 +84,7 @@ TEST(PositionTest, MoveSouthVariableTest) {
 	testPos.MoveTowards(DIRECTION::SOUTH, 500);
 
 	EXPECT_EQ(testPos.GetX(), 456);
-	EXPECT_EQ(testPos.GetY(), 727);
+	EXPECT_EQ(testPos.GetY(), -273);
 }
 
 TEST(PositionTest, MoveUnknownVariableTest) {
