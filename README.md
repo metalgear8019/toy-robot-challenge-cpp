@@ -3,7 +3,6 @@ C++ Technical Challenge
 ## Table of Contents  
 * [Description and requirements](#description)  
 * [Constraints](#constraints) 
-* [Approach](#approach)
 * [Prerequisite and Instructions](#prerequisite)   
 * [Example](#example)  
 
