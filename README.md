@@ -3,53 +3,30 @@ C++ Technical Challenge
 ## Table of Contents  
 * [Description and requirements](#description)  
 * [Constraints](#constraints) 
+* [Approach](#approach)
 * [Prerequisite and Instructions](#prerequisite)   
 * [Example](#example)  
 
 
 <a name="description"/>
 
-## Description and Requirements:
+## Description and Requirements
 * The application is a simulation of a toy robot moving on a square table top, of dimensions 5 units x 5 units.
 * There are no other obstructions on the table surface.
 * The robot is free to roam around the surface of the table, but must be prevented from falling to destruction.
 * Any movement that would result in the robot falling from the table must be prevented, however further valid movement commands must still be allowed.
 
-Create a console application that can read in commands of the following form:
+Commands available in this console:
 
 * `PLACE X,Y,F`
-
-> `PLACE` will put the toy robot on the table in position X,Y and facing NORTH, SOUTH, EAST or WEST.
-The origin (0,0) can be considered to be the SOUTH WEST most corner.
-It is required that the first command to the robot is a PLACE command,
-after that, any sequence of commands may be issued, in any order, including another PLACE command.
-The application should discard all commands in the sequence until a valid PLACE command has been executed.
-
 * `MOVE`
 * `LEFT`
 * `RIGHT`
 * `REPORT`
 
-
-`MOVE` will move the toy robot one unit forward in the direction it is currently facing.<br/>
-`LEFT` and `RIGHT` will rotate the robot 90 degrees in the specified direction without changing the position of the robot. <br/>
-`REPORT` will announce the X,Y and F of the robot. <br/>
-
-This can be in any form, but standard output is sufficient. <br/>
-
-A robot that is not on the table can choose to ignore the MOVE, LEFT, RIGHT and REPORT commands. 
-
-Input can be from a file, or from standard input, as the developer chooses. 
-Provide test data to exercise the application. 
-It is **not required** to provide any graphical output showing the movement of the toy robot. 
-The application should handle error states appropriately and be robust to user input.
-
-<a name="constraints"/>
-
-## Constraints: 
-The toy robot must not fall off the table during movement.<br/> 
-This also includes the initial placement of the toy robot. <br/>
-Any move that would cause the robot to fall must be ignored.<br/>
+## Constraints
+* The toy robot must not fall off the table during movement. This also includes the initial placement of the toy robot.
+* Any move that would cause the robot to fall must be ignored.
 
 ### Visualization
 To visualize the robot movement and starting point please see reference below:
@@ -70,38 +47,29 @@ When LEFT/RIGHT command is entered, we move turn the robot(bug) to the left/righ
 When REPORT command is entered, we get the position of the robot(bug)<br/>
 ![3_move_report](https://user-images.githubusercontent.com/13585907/171349731-23da5053-7a16-465f-a975-61aa9cfda006.PNG)
 
-### Limitations
-
-The following features are yet to be implemented:
-
-* Make the table size configurable
-* Add 2 (or n) robots on the table
-* Add more directions
-* Add obstacles
-* Support a different shaped table
-* Macros
-* Add a 3rd dimension
-
 <a name="prerequisite"/>
 
 ## Prerequisite
-* Create and tested using Visual Studio 2019(MICROSOFT VISUAL C++ 2015 - 2022 RUNTIME)
-* Gtest(google test) was use for unit testing
+* Create and tested using Visual Studio 2017
+* Google Test Adapter (installed via Visual Studio 2017)
 
 ## Instructions
+
 ### Unit Test
-* Download or Clone the Repository git@github.com:omgcarlo/toy-robot-challenge.git
-* Run toy_robot.sln via Visual Studio(preferable Visual Studio 2019 or up)
-* By default, the (gtest) unit test will be the start up application. 
-* Run it via "Local Windows Debugger"
-### Application(exe)
-* [Download Application Here](https://github.com/omgcarlo/toy-robot-challenge/releases/tag/basic_feature)
-* Run Application
+1. Clone this repository.
+2. Run `ToyRobot.sln` via Visual Studio _(preferrably Visual Studio 2017 or newer)_
+3. Rebuild the solution.
+4. Open the "Test Explorer" via
+5. Run it via "Local Windows Debugger"
+
+### Application
+1. Follow same steps as _Unit Test_.
+2. Run it via "Local Windows Debugger".
 
 <a name="example"/>
 
-## Example Input and Output: 
-### example 1
+## Example Input and Output
+### Example 1
 Input
 <pre>
 PLACE 0,0,NORTH 
@@ -112,7 +80,7 @@ Output:
 <pre>
 0,1,NORTH 
 </pre>
-### example #2
+### Example #2
 Input
 <pre>
 PLACE 0,0,NORTH 
@@ -123,7 +91,7 @@ Output:
 <pre>
 0,0,WEST 
 </pre>
-### example #3
+### Example #3
 Input
 <pre>
 PLACE 1,2,EAST 
