@@ -94,14 +94,13 @@ public:
 				outDir = DIRECTION::SOUTH;
 			}
 			else {
+				outDir = DIRECTION::UNKNOWN;
 				isSuccessful = false;
 			}
 		}
 		catch (std::exception&) { isSuccessful = false; }
 		return isSuccessful;
 	}
-
-	Parser() {}
 };
 
 #endif
