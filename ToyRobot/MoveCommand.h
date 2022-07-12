@@ -35,18 +35,11 @@ public:
             return false;
         }
 
-        if (!m_table->IsUnoccupuied(nextPos)) {
-            // Robot cannot move to occupied cells
-            std::cout << "> Cannot move due to existing entity in specified position." << std::endl;
-            return false;
-        }
-
         // Update actual robot position
         m_table->GetRobotReference()->SetPosition(nextPos);
         return true;
     }
 private:
-    // TODO: Change primitive pointer
     Table* m_table;
 };
 

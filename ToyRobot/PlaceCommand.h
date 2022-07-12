@@ -52,12 +52,6 @@ public:
             return false;
         }
 
-        if (!m_table->IsUnoccupuied(argPos)) {
-            // Robot cannot move to occupied cells
-            std::cout << "> Cannot place robot due to existing entity in specified position." << std::endl;
-            return false;
-        }
-
         if (!parser.ParseDirection(argDir, splitArgs[2])) {
             // Invalid parameter for direction
             std::cout << "> Invalid direction parameter." << std::endl;
@@ -69,7 +63,6 @@ public:
         return true;
     }
 private:
-    // TODO: Change primitive pointer
     Table* m_table;
     std::string m_args;
 };

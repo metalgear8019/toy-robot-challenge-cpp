@@ -27,7 +27,6 @@ public:
         return true;
     }
 private:
-    // TODO: Change primitive pointer
     Table* m_table;
 };
 
