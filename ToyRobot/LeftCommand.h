@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef LEFTCOMMAND_H
+#define LEFTCOMMAND_H
+
 #include <iostream>
 
 #include "Command.h"
@@ -28,3 +31,5 @@ private:
     // TODO: Change primitive pointer
     Table* m_table;
 };
+
+#endif

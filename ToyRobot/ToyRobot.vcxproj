@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CommandFactory.cpp" />
     <ClCompile Include="LeftCommand.cpp" />
     <ClCompile Include="MoveCommand.cpp" />
     <ClCompile Include="Parser.cpp" />
@@ -139,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Command.h" />
+    <ClInclude Include="CommandFactory.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="LeftCommand.h" />
     <ClInclude Include="MoveCommand.h" />

@@ -1,12 +1,13 @@
 #pragma once
 
+#ifndef PLACECOMMAND_H
+#define PLACECOMMAND_H
+
 #include <iostream>
 #include <vector>
-#include <sstream>
-#include <string>
-#include <algorithm>
 
 #include "Command.h"
+#include "Parser.h"
 #include "Table.h"
 
 class PlaceCommand : public Command
@@ -18,6 +19,8 @@ public:
     }
 
     bool Execute() const override {
+        Parser parser;
+
         // Return false if robot is already placed
         if (m_table->IsRobotPlaced()) {
             // Robot already added
@@ -26,7 +29,7 @@ public:
         }
 
         // Split arguments and validate number of inputs
-        std::vector<std::string> splitArgs = splitInputs(m_args);
+        std::vector<std::string> splitArgs = parser.SplitInputs(m_args, ',');
         if (splitArgs.size() != 3) {
             // Invalid param count
             std::cout << "> PLACE expects 3 parameters: PosX, PosY, DIRECTION" << std::endl;
@@ -37,7 +40,7 @@ public:
         Position argPos;
         Direction argDir = DIRECTION::UNKNOWN;
         
-        if (!parsePosition(argPos, splitArgs[0], splitArgs[1])) {
+        if (!parser.ParsePosition(argPos, splitArgs[0], splitArgs[1])) {
             // Invalid parameter for position
             std::cout << "> Invalid position parameter." << std::endl;
             return false;
@@ -55,7 +58,7 @@ public:
             return false;
         }
 
-        if (!parseDirection(argDir, splitArgs[2])) {
+        if (!parser.ParseDirection(argDir, splitArgs[2])) {
             // Invalid parameter for direction
             std::cout << "> Invalid direction parameter." << std::endl;
             return false;
@@ -69,47 +72,6 @@ private:
     // TODO: Change primitive pointer
     Table* m_table;
     std::string m_args;
-
-    std::vector<std::string> splitInputs(std::string args) const {
-        std::vector<std::string> result;
-        std::stringstream argsStream(args);
-        std::string arg;
-
-        while (std::getline(argsStream, arg, ',')) {
-            result.push_back(arg);
-        }
-
-        return result;
-    }
-
-    bool parsePosition(Position& outPos, std::string inX, std::string inY) const {
-        bool isSuccessful = true;
-        try {
-            outPos.SetX(stoi(inX));
-            outPos.SetY(stoi(inY));
-        }
-        catch (std::exception&) { isSuccessful = false; }
-        return isSuccessful;
-    }
-
-    bool parseDirection(Direction& outDir, std::string inDir) const {
-        // TODO: Remove whitespace before comparing
-        bool isSuccessful = true;
-        try {
-            std::transform(inDir.begin(), inDir.end(), inDir.begin(), ::toupper);
-            if (inDir.compare("NORTH") == 0) {
-                outDir = DIRECTION::NORTH;
-            } else if (inDir.compare("EAST") == 0) {
-                outDir = DIRECTION::EAST;
-            } else if (inDir.compare("WEST") == 0) {
-                outDir = DIRECTION::WEST;
-            } else if (inDir.compare("SOUTH") == 0) {
-                outDir = DIRECTION::SOUTH;
-            } else {
-                isSuccessful = false;
-            }
-        }
-        catch (std::exception&) { isSuccessful = false; }
-        return isSuccessful;
-    }
 };
+
+#endif

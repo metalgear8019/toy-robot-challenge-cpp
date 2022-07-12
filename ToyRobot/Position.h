@@ -1,15 +1,10 @@
 #pragma once
 
+#ifndef POSITION_H
+#define POSITION_H
+
 #include "Constants.h"
 
-/// <summary>
-/// Position.h
-///		Contains the coordinate data of a given entity.
-/// 
-/// Notes:
-///		(1) Can add "m_z" for a 3rd coordinate data in a 3D plane.
-///		(2) Negative position values are allowed in this class.
-/// </summary>
 class Position
 {
 public:
@@ -52,3 +47,5 @@ private:
 	int m_x;
 	int m_y;
 };
+
+#endif

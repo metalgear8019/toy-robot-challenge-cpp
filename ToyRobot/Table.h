@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef TABLE_H
+#define TABLE_H
+
 #include <memory>
 #include <string>
 
@@ -125,3 +128,4 @@ private:
 	}
 };
 
+#endif

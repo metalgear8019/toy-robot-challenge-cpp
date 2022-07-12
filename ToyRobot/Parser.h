@@ -1,67 +1,107 @@
 #pragma once
 
+#ifndef PARSER_H
+#define PARSER_H
+
 #include <string>
 #include <sstream>
 #include <algorithm>
+#include <vector>
+#include <regex>
 
-#include "Command.h"
-#include "PlaceCommand.h"
-#include "MoveCommand.h"
-#include "LeftCommand.h"
-#include "RightCommand.h"
-#include "ReportCommand.h"
-#include "Table.h"
+#include "Constants.h"
+#include "Position.h"
 
 class Parser
 {
 public:
-	bool ParseCommand(std::string strInput) {
+	CommandCode ParseCommand(std::string strInput) {
 		std::stringstream strInputStream(strInput);
 		std::string strCmd;
 
 		if (!std::getline(strInputStream, strCmd, ' ')) {
 			// No command inputted
-			std::cout << "> No command inputted!" << std::endl;
-			return false;
+			return CMD_UNKNOWN;
 		}
 
-		Command* cmd;
 		std::transform(strCmd.begin(), strCmd.end(), strCmd.begin(), ::toupper);
 		if (strCmd.compare("PLACE") == 0) {
-			std::string strArgs = strInput;
-			strArgs.erase(0, 5);
-			cmd = new PlaceCommand(m_table, strArgs);
+			return CMD_PLACE;
 		} else if (strCmd.compare("MOVE") == 0) {
-			cmd = new MoveCommand(m_table);
+			return CMD_MOVE;
 		} else if (strCmd.compare("LEFT") == 0) {
-			cmd = new LeftCommand(m_table);
+			return CMD_LEFT;
 		} else if (strCmd.compare("RIGHT") == 0) {
-			cmd = new RightCommand(m_table);
+			return CMD_RIGHT;
 		} else if (strCmd.compare("REPORT") == 0) {
-			cmd = new ReportCommand(m_table);
+			return CMD_REPORT;
+		} else if (strCmd.compare("EXIT") == 0) {
+			return CMD_EXIT;
 		} else {
 			// Unrecognized command
-			std::cout << "> Unrecognized command." << std::endl;
-			return false;
+			return CMD_UNKNOWN;
+		}
+	}
+
+	std::vector<std::string> SplitInputs(std::string args, char delim) const {
+		std::vector<std::string> result;
+		std::stringstream argsStream(args);
+		std::string arg;
+
+		while (std::getline(argsStream, arg, delim)) {
+			result.push_back(arg);
 		}
 
-		if (cmd->Execute()) {
-			delete cmd;
-			return true;
+		return result;
+	}
+
+	std::string RemoveLeadingAndTrailingWhitespaces(const std::string& str) const {
+		std::string result = str;
+		std::regex leadingRegex("^\\s+");
+		std::regex trailingRegex("\\s+$");
+		result = std::regex_replace(result, leadingRegex, "");
+		result = std::regex_replace(result, trailingRegex, "");
+		return result;
+	}
+
+	bool ParsePosition(Position& outPos, std::string inX, std::string inY) const {
+		bool isSuccessful = true;
+		try {
+			outPos.SetX(stoi(inX));
+			outPos.SetY(stoi(inY));
 		}
-
-		// Command execution failed
-		return false;
+		catch (std::exception&) { isSuccessful = false; }
+		return isSuccessful;
 	}
 
-	Parser() {
-		m_table = new Table(5, 5);
+	bool ParseDirection(Direction& outDir, std::string inDir) const {
+		bool isSuccessful = true;
+		try {
+			// Remove leading & trailing whitespace and convert to upper case
+			inDir = RemoveLeadingAndTrailingWhitespaces(inDir);
+			std::transform(inDir.begin(), inDir.end(), inDir.begin(), ::toupper);
+
+			if (inDir.compare("NORTH") == 0) {
+				outDir = DIRECTION::NORTH;
+			}
+			else if (inDir.compare("EAST") == 0) {
+				outDir = DIRECTION::EAST;
+			}
+			else if (inDir.compare("WEST") == 0) {
+				outDir = DIRECTION::WEST;
+			}
+			else if (inDir.compare("SOUTH") == 0) {
+				outDir = DIRECTION::SOUTH;
+			}
+			else {
+				isSuccessful = false;
+			}
+		}
+		catch (std::exception&) { isSuccessful = false; }
+		return isSuccessful;
 	}
 
-	~Parser() {
-		delete m_table;
-	}
-private:
-	Table* m_table;
+	Parser() {}
 };
 
+#endif

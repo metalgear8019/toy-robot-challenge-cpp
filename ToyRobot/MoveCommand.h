@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef MOVECOMMAND_H
+#define MOVECOMMAND_H
+
 #include <iostream>
 
 #include "Command.h"
@@ -46,3 +49,5 @@ private:
     // TODO: Change primitive pointer
     Table* m_table;
 };
+
+#endif

@@ -1,37 +1,51 @@
-// ToyRobot.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+#pragma once
 
 #include <iostream>
 #include <string>
 
+#include "CommandFactory.h"
+#include "Command.h"
 #include "Parser.h"
+#include "Table.h"
 
 int main()
 {
     bool isTerminated = false;
-    std::string command;
+    std::string strInput;
+    Command* cmd = nullptr;
+
+    // Function callers and parsers init
+    CommandFactory cmdFactory;
+    Parser parser;
+
+    // Declare grid/table with a 5x5 size
+    Table table(5, 5);
+
+    // Display available commands
+    std::cout
+        << "Available commands:" << std::endl
+        << " (1) PLACE X,Y,DIRECTION" << std::endl
+        << " (2) MOVE" << std::endl
+        << " (2) LEFT" << std::endl
+        << " (3) RIGHT" << std::endl
+        << " (4) REPORT" << std::endl
+        << "** Use EXIT command to exit application." << std::endl << std::endl;
 
     do {
-        // TODO: add display logic for initial command list
-        // std::cout << "Hello World!\n";
-
         // Read command input here
-        Parser parser;
-        do {
-            std::getline(std::cin, command);
-            parser.ParseCommand(command);
-        } while (true);
+        try {
+            std::getline(std::cin, strInput);
+            
+            auto cmdCode = parser.ParseCommand(strInput);
+            if (cmdCode != CMD_EXIT) {
+                cmd = cmdFactory.CreateCommand(cmdCode, &table, strInput);
+                if (nullptr != cmd) {
+                    cmd->Execute();
+                    delete cmd;
+                }
+            } else { isTerminated = true; }
+        } catch (std::exception&) { isTerminated = true; }
+
     } while (!isTerminated);
 
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file

@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef REPORTCOMMAND_H
+#define REPORTCOMMAND_H
+
 #include <iostream>
 
 #include "Command.h"
@@ -27,3 +30,5 @@ private:
     // TODO: Change primitive pointer
     Table* m_table;
 };
+
+#endif

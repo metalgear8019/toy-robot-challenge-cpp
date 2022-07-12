@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef ROBOT_H
+#define ROBOT_H
+
 #include <string>
 
 #include "Constants.h"
@@ -19,13 +22,12 @@ public:
 
 	// Getters
 	const Position& GetPosition() { return m_pos; }
-	const int& GetDirection() { return m_direction; }
+	const Direction& GetDirection() { return m_direction; }
 	
 	// Setters
 	void SetPosition(const Position& p) { m_pos = p; }
 	void SetDirection(const Direction& d) { m_direction = d; }
 
-	// TODO: Remove rotation logic from this class, create dedicated Direction class
 	// Manipulate rotation below
 	void FaceLeft() {
 		switch (m_direction)
@@ -76,3 +78,4 @@ private:
 	Direction m_direction;
 };
 
+#endif
